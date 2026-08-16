@@ -28,7 +28,7 @@ flowchart TD
 
 ### 1. Claude Code
 ```bash
-git clone https://github.com/Fish-TV/xiaobai-communicator.git ~/.claude/skills/xiaobai-communicator
+git clone https://github.com/fishtvlvoe/xiaobai-communicator.git ~/.claude/skills/xiaobai-communicator
 ```
 
 ### 2. Cursor（解決 Cursor Agent 講天書的問題）
@@ -36,7 +36,7 @@ git clone https://github.com/Fish-TV/xiaobai-communicator.git ~/.claude/skills/x
 
 ### 3. Codex / OpenCode
 ```bash
-git clone https://github.com/Fish-TV/xiaobai-communicator.git ~/.agents/skills/xiaobai-communicator
+git clone https://github.com/fishtvlvoe/xiaobai-communicator.git ~/.agents/skills/xiaobai-communicator
 ```
 
 ### 4. ChatGPT / Claude Web 版

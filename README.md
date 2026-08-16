@@ -64,15 +64,30 @@
 
 ### 第一步：安裝
 
-**不管你用哪一套 AI，這個方法都能裝（萬用版）**
+**用網頁版 AI（ChatGPT、Gemini、Claude.ai 這種要打開網站用的）→ 開這個網頁，一鍵複製貼上**
 
-不用管你是 ChatGPT、Claude、Gemini、Grok，還是公司內部的 AI，只要它能讓你貼「自訂指令」或「系統提示」，這招都通：
+👉 **[fishtvlvoe.github.io/Awesome-Eason](https://fishtvlvoe.github.io/Awesome-Eason/)**
+
+點一下「一鍵複製 Prompt」按鈕，內容就複製好了，網頁上還會告訴你 ChatGPT／Gemini／Claude.ai 各自要貼到哪個欄位（自訂指令、系統提示這些不同 AI 叫法不同的東西，功能都一樣：讓它記住固定規則）。
+
+<details>
+<summary>沒辦法開網頁？照這個手動版一樣能裝</summary>
 
 1. 打開 [`prompts/system-prompt.md`](prompts/system-prompt.md)，把裡面全部內容複製起來
 2. 貼到你那套 AI 的「自訂指令」「Custom Instructions」「System Prompt」「Project Instructions」（不同 AI 叫法不同，功能都一樣：讓它記住固定規則）
 3. 存檔，之後每次對話它都會照這套規則講話
+</details>
 
-**如果你用的是 Claude Code / Cursor / Codex 這種會裝「外掛」的工具**，有更省事的裝法，效果跟萬用版一樣，但不用每個對話視窗都貼一次：
+**如果你用的是 Claude Code / Cursor / Codex 這種要在終端機（Terminal，就是打指令那個黑色視窗）裝「外掛」的工具**，一行指令自動幫你偵測、裝好，比貼上網頁版還省事：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/fishtvlvoe/Awesome-Eason/main/install.sh | bash
+```
+
+這行指令會自動抓你電腦上裝了 Claude Code 還是 Codex／OpenCode，自動裝到對的地方；裝過了會自動更新，不會重複裝。Cursor 沒有「裝一次全部生效」的地方，指令跑完會告訴你手動兩步怎麼做。
+
+<details>
+<summary>想自己控制裝去哪裡？或不想跑一鍵指令，展開看手動版</summary>
 
 <details>
 <summary>Claude Code 使用者</summary>
@@ -95,6 +110,8 @@ git clone https://github.com/fishtvlvoe/Awesome-Eason.git ~/.claude/skills/aweso
 ```bash
 git clone https://github.com/fishtvlvoe/Awesome-Eason.git ~/.agents/skills/awesome-eason
 ```
+</details>
+
 </details>
 
 ### 第二步：打關鍵字啟動
@@ -130,6 +147,8 @@ git clone https://github.com/fishtvlvoe/Awesome-Eason.git ~/.agents/skills/aweso
 
 - [`SKILL.md`](SKILL.md)：這個 Agent 的完整行為規則
 - [`.cursorrules`](.cursorrules)：給 Cursor 用的規則檔
+- [`install.sh`](install.sh)：CLI 一鍵安裝腳本，自動偵測裝去 Claude Code 還是 Codex／OpenCode
+- [`docs/index.html`](docs/index.html)：網頁版一鍵複製頁面的原始碼（就是 [fishtvlvoe.github.io/Awesome-Eason](https://fishtvlvoe.github.io/Awesome-Eason/) 這個網站）
 - [`references/tech-plain-talk.md`](references/tech-plain-talk.md)：技術轉生活比喻的對照庫
 - [`references/adhd-guardrails.md`](references/adhd-guardrails.md)：降低閱讀負擔的輸出規則
 - [`references/ai-patterns.md`](references/ai-patterns.md)：AI 常見套話特徵清單

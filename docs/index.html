@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>譯神 Awesome-Eason｜一鍵複製</title>
+<meta name="description" content="把難懂的話翻成聽得懂的話。複製一段文字，貼到你的 AI 設定裡，之後打幾個關鍵字就能自動切換講法。">
+<style>
+  :root {
+    --bg: #faf8f5;
+    --card-bg: #ffffff;
+    --text: #2b2620;
+    --text-dim: #6b6459;
+    --accent: #b3532c;
+    --accent-dark: #8f4020;
+    --border: #e8e0d5;
+    --code-bg: #2b2620;
+    --code-text: #f2ede4;
+    --success: #3d7a4a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+  header { text-align: center; margin-bottom: 40px; }
+  h1 {
+    font-size: 2rem;
+    margin: 0 0 12px;
+    letter-spacing: 0.02em;
+  }
+  header p {
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .copy-main {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .copy-main:hover { background: var(--accent-dark); }
+  .copy-main.copied { background: var(--success); }
+  .hint {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+  h2 {
+    font-size: 1.1rem;
+    margin: 0 0 16px;
+    color: var(--text);
+  }
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .tab-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+  .tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .tab-panel ol {
+    padding-left: 20px;
+    margin: 0;
+  }
+  .tab-panel li { margin-bottom: 8px; }
+  .tab-panel .note {
+    margin: 12px 0 0;
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+  .cli-block {
+    background: var(--code-bg);
+    color: var(--code-text);
+    border-radius: 10px;
+    padding: 16px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin-bottom: 12px;
+  }
+  .copy-small {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-dark);
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .copy-small.copied {
+    color: #fff;
+    background: var(--success);
+    border-color: var(--success);
+  }
+  footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-top: 40px;
+  }
+  footer a { color: var(--accent-dark); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>譯神 Awesome-Eason</h1>
+    <p>把難懂的話翻成聽得懂的話。複製下面這段，貼到你的 AI 設定裡，之後打幾個關鍵字就會自動換一套講法。</p>
+  </header>
+
+  <div class="card">
+    <button class="copy-main" id="copyPromptBtn">一鍵複製 Prompt</button>
+    <p class="hint">按下去就複製好了，接著往下看要貼去哪裡。</p>
+  </div>
+
+  <div class="card">
+    <h2>貼去哪裡？</h2>
+    <div class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="chatgpt">ChatGPT</button>
+      <button class="tab-btn" data-tab="gemini">Gemini</button>
+      <button class="tab-btn" data-tab="claude">Claude.ai</button>
+      <button class="tab-btn" data-tab="cli">Claude Code / Cursor / Codex</button>
+    </div>
+
+    <div class="tab-panel active" data-panel="chatgpt">
+      <ol>
+        <li>打開 ChatGPT，點左下角你的頭像 → 「設定」→「個人化」</li>
+        <li>往下捲到「關於你」區塊，找到「更多關於你的資訊」那一欄</li>
+        <li>把剛才複製的內容貼進去，按「儲存」</li>
+      </ol>
+      <p class="note">ChatGPT 這個欄位比較像「補充資訊」，權重沒有 Claude、Gemini 高，效果可能打點折。如果發現它沒完全照規則講話，可以在對話一開始再貼一次完整內容當提醒。</p>
+    </div>
+
+    <div class="tab-panel" data-panel="gemini">
+      <ol>
+        <li>Gemini 目前沒有像 ChatGPT 那種「全站通用」的自訂指令，要透過建立一個專屬 Gem 才能設定（「已儲存的資訊」是另一個功能，不是這個用途，貼了也不會生效）</li>
+        <li>點左側選單「Gem」→「新增 Gem」，取個名字（例如「譯神」）</li>
+        <li>把剛才複製的內容貼進「使用說明」欄位，按「儲存」</li>
+        <li>之後要用譯神功能，記得從「Gem」清單點開這個 Gem 再開始對話，在一般首頁輸入框打字不會套用這套規則</li>
+      </ol>
+    </div>
+
+    <div class="tab-panel" data-panel="claude">
+      <ol>
+        <li>打開 Claude.ai，建一個新的 Project（專案）</li>
+        <li>進到 Project settings，找到「Project instructions」欄位</li>
+        <li>把剛才複製的內容貼進去，存檔</li>
+        <li>之後在這個 Project 裡開的對話都會自動套用</li>
+      </ol>
+    </div>
+
+    <div class="tab-panel" data-panel="cli">
+      <ol>
+        <li>這幾套工具不用複製貼上，打開終端機（Terminal）跑一行指令就會自動裝好：</li>
+      </ol>
+      <div class="cli-block" id="cliCommand">curl -fsSL https://raw.githubusercontent.com/fishtvlvoe/Awesome-Eason/main/install.sh | bash</div>
+      <button class="copy-small" id="copyCliBtn">複製指令</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>不知道自己是哪種 AI？打開你平常用的那個網站，找「設定」裡有沒有「自訂指令」「Custom Instructions」這幾個字，就是它。</p>
+    <p><a href="https://github.com/fishtvlvoe/Awesome-Eason">回 GitHub 看完整說明</a></p>
+  </footer>
+
+</div>
+
+<script>
+  const PROMPT_TEXT = `你是「譯神」（Awesome-Eason）。你的核心使命是消滅技術黑話天書與假大空的 AI 套話。
+
+你擁有三個核心身份：
+1. 【小白模式】（對話與技術交流）：
+   - 技術降維：遇到程式碼、系統架構、故障回報時，開頭先用 1 個生活化情境比喻（如超商結帳、寄包裹、交通管制）。
+   - ADHD 友善：結論先行、步驟編號、條列最多 5 項、零客套開場、結尾給 1 個 2 分鐘內可做的下一步。
+2. 【說人話模式】（文字審稿與內容改寫）：
+   - 清除 35+ 種 AI 八股（空泛拔高、假推論、說教腔、罐頭結尾）。
+   - 繁體中文台灣在地化：自動校正中國用語（質量➔品質、默認➔預設），使用全形標點。
+   - 保真原則：價格、數據、真實故事與專有名詞一字不改。
+3. 【翻譯模式】（急救，優先權最高）：
+   - 只要使用者說「看不懂，說人話」「完全看不懂」「還是不懂」「請教我怎麼用你」，不管當下在講技術還是在改文案，立刻中斷原邏輯。
+   - 改用小學五年級都能懂的日常比喻，把剛才那段話重講一次，結尾只問「這樣有比較清楚嗎？」
+   - 如果使用者是打「請教我怎麼用你」，主動列出 3 個常用情境給他選（技術看不懂／文案太假／完全看不懂），不用等他先搞懂規則。`;
+
+  const CLI_COMMAND = "curl -fsSL https://raw.githubusercontent.com/fishtvlvoe/Awesome-Eason/main/install.sh | bash";
+
+  function flashCopied(btn, originalText, copiedText) {
+    btn.textContent = copiedText;
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.classList.remove('copied');
+    }, 2000);
+  }
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      document.body.removeChild(ta);
+      return ok;
+    }
+  }
+
+  const copyPromptBtn = document.getElementById('copyPromptBtn');
+  copyPromptBtn.addEventListener('click', async () => {
+    const ok = await copyText(PROMPT_TEXT);
+    if (ok) {
+      flashCopied(copyPromptBtn, '一鍵複製 Prompt', '已複製！');
+    } else {
+      alert('複製失敗，瀏覽器不支援自動複製，麻煩手動選取文字複製。');
+    }
+  });
+
+  const copyCliBtn = document.getElementById('copyCliBtn');
+  copyCliBtn.addEventListener('click', async () => {
+    const ok = await copyText(CLI_COMMAND);
+    if (ok) {
+      flashCopied(copyCliBtn, '複製指令', '已複製！');
+    } else {
+      alert('複製失敗，麻煩手動選取指令複製。');
+    }
+  });
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`.tab-panel[data-panel="${btn.dataset.tab}"]`).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,94 +1,132 @@
-# 🤖 小白溝通師 (Xiaobai Communicator)
-### 說人話 Agent 4-in-1 全域解決方案
+# 譯神｜Awesome-Eason
 
-> **「字都看得懂，湊在一起像天書？」** —— 這是工程師與 AI 最常犯的毛病。  
-> **「文字很華麗，讀起來卻空洞無物？」** —— 這是 AI 生成內容最大的死穴。
-
-**小白溝通師** 是一個專為「消滅冷冰冰技術黑話」與「清除 AI 八股套話」打造的開源 Agent / Skill。  
-整合了 **`im-human`**（語態切換）、**`speak-human-tw`**（35+ 種 AI 味特徵庫與台灣在地化）、**`humanizer-zh`**（口語骨架）以及 **`ADHD-friendly 溝通護欄`**（降低認知負擔），讓 AI 跟人類對話真正「說人話」。
+### 一個把「難懂的話」翻成「聽得懂的話」的 AI 小幫手
 
 ---
 
-## 🌟 核心雙身份
+## 這東西是做什麼的？
 
-```mermaid
-flowchart TD
-    Input[使用者指令 / 程式碼 / 文字稿] --> Router{情境判斷}
-    
-    Router -->|討論程式、架構、錯誤、解法| ID1[🚗 身份 1：小白溝通師]
-    Router -->|文案、文章、社群貼文、信件| ID2[✍️ 身份 2：說人話]
-    
-    ID1 --> Out1[1. 生活化比喻降維<br/>2. 結論先行，條列 ≤ 5 項<br/>3. 給 2 分鐘內可做的小動作]
-    ID2 --> Out2[1. 清除 35+ 種 AI 寫作痕跡<br/>2. 台灣在地化用語與全形標點<br/>3. 事實保真不瞎編]
-```
+你有沒有遇過這兩種狀況：
+
+1. 工程師或 AI 跟你解釋一個技術問題，每個字你都認得，湊在一起完全看不懂。
+2. AI 幫你寫的文案，讀起來很厲害、很有氣勢，但你講不出它到底在說什麼。
+
+**譯神** 就是為了解決這兩件事做的工具。裝上它之後，你只要打一句關鍵字，AI 的回答方式就會自動換一套，改用你聽得懂的方式講話。
+
+它有兩個模式：
+
+| 模式 | 用來做什麼 | 什麼時候用 |
+| :--- | :--- | :--- |
+| **小白模式** | 把技術問題講成生活比喻，先講結論、再給你下一步要按什麼按鈕 | 看不懂程式碼、架構、錯誤訊息的時候 |
+| **人話模式** | 把 AI 寫的空話、套話清掉，改成像真人打字給朋友看的口氣 | 文案、貼文、信件讀起來太假、太厲害的時候 |
 
 ---
 
-## ⚡ 30 秒安裝與使用
+## 你打什麼，它回什麼（實際例子）
 
-### 1. Claude Code
+### 例子 1：技術問題聽不懂 → 打「小白模式」
+
+**你打：**
+> 小白模式，幫我解釋這個 bug
+
+**AI 原本會回你（看不懂）：**
+> 我們在處理 checkout endpoint 時發現因缺乏 Row-level lock 導致併發下庫存扣減出現 Race condition，進而引發 Deadlock 異常。
+
+**裝了譯神之後會回你（看得懂）：**
+> **發生什麼事**：這就像兩個人在超商同時伸手拿最後一包洋芋片，店員刷了兩次條碼，電腦卡住不知道該賣給誰。
+> **我們做了什麼**：加了一個「排隊拿號碼牌」的機制，先搶到的人先拿，晚一步的人會被告知「已售完」。
+> **你現在要做的事**：點一下〔測試訂購〕按鈕，確認賣完之後畫面有沒有正常顯示「已售完」。
+
+### 例子 2：文案太假、太 AI → 打「說人話」
+
+**你打：**
+> 說人話，幫我改這段文案
+
+**AI 原本會寫成（太假）：**
+> 在當今瞬息萬變的數位時代，這款工具的誕生無疑標誌著工作效率的重大飛躍，能為團隊賦能並優化整個業務閉環。
+
+**裝了譯神之後會改成（像真人寫的）：**
+> 工作節奏越來越快，這款工具幫團隊省下很多重複手動的步驟，流程也順很多。如果你的團隊常被雜事卡住，值得試試看。
+
+---
+
+## 怎麼裝、打什麼字會啟動
+
+### 第一步：安裝
+
+**不管你用哪一套 AI，這個方法都能裝（萬用版）**
+
+不用管你是 ChatGPT、Claude、Gemini、Grok，還是公司內部的 AI，只要它能讓你貼「自訂指令」或「系統提示」，這招都通：
+
+1. 打開 [`prompts/system-prompt.md`](prompts/system-prompt.md)，把裡面全部內容複製起來
+2. 貼到你那套 AI 的「自訂指令」「Custom Instructions」「System Prompt」「Project Instructions」（不同 AI 叫法不同，功能都一樣：讓它記住固定規則）
+3. 存檔，之後每次對話它都會照這套規則講話
+
+**如果你用的是 Claude Code / Cursor / Codex 這種會裝「外掛」的工具**，有更省事的裝法，效果跟萬用版一樣，但不用每個對話視窗都貼一次：
+
+<details>
+<summary>Claude Code 使用者</summary>
+
+把下面這行貼到終端機（Terminal）執行一次就好，之後每次開 Claude Code 都會自動生效：
 ```bash
-git clone https://github.com/fishtvlvoe/xiaobai-communicator.git ~/.claude/skills/xiaobai-communicator
+git clone https://github.com/fishtvlvoe/Awesome-Eason.git ~/.claude/skills/xiaobai-communicator
 ```
+</details>
 
-### 2. Cursor（解決 Cursor Agent 講天書的問題）
-將專案內的 [`.cursorrules`](.cursorrules) 複製到你的專案根目錄，或將內容貼到 **Cursor Settings ➔ Rules for AI**。
+<details>
+<summary>Cursor 使用者</summary>
 
-### 3. Codex / OpenCode
+把專案裡的 [`.cursorrules`](.cursorrules) 這個檔案複製到你自己的專案最上層資料夾，或把裡面的內容貼到 Cursor 的「Settings → Rules for AI」欄位。
+</details>
+
+<details>
+<summary>Codex / OpenCode 使用者</summary>
+
 ```bash
-git clone https://github.com/fishtvlvoe/xiaobai-communicator.git ~/.agents/skills/xiaobai-communicator
+git clone https://github.com/fishtvlvoe/Awesome-Eason.git ~/.agents/skills/xiaobai-communicator
 ```
+</details>
 
-### 4. ChatGPT / Claude Web 版
-複製 [`prompts/system-prompt.md`](prompts/system-prompt.md) 的內容，貼進 **Custom Instructions** 或 **Project Prompt** 即可。
+### 第二步：打關鍵字啟動
 
----
+不用背指令，打這些日常會講的話就會自動切換：
 
-## 💬 常用觸發指令
-
-| 想做什麼 | 直接對 AI 說這句話 |
+| 想要的效果 | 打這句話 |
 | :--- | :--- |
-| **聽不懂程式碼或技術解釋** | 「我看不懂」、「說大白話」、「小白模式」 |
-| **技術回報要大白話** | 「用小白溝通師跟我回報進度」 |
-| **幫文章或文案去 AI 味** | 「說人話」、「幫這段去 AI 味」、「改自然」 |
-| **抓文案問題不改稿** | 「先標問題不要改」 |
+| 技術東西聽不懂 | 「我看不懂」、「說大白話」、「小白模式」 |
+| 文案改自然一點 | 「說人話」、「幫這段去 AI 味」、「改自然」 |
+| 只想知道哪裡怪，先不要動手改 | 「先標問題不要改」 |
+| **連要打什麼都不知道** | 「請教我怎麼用你」，它會直接帶你 |
 
 ---
 
-## 📊 前後對照示範
+## 剛裝好？照抄這四句就能用
 
-### 範例 A：工程技術溝通（小白溝通師）
+不用自己想怎麼問，遇到下面的狀況，照抄那句話貼上去就好。不管你裝在哪一套 AI，這四句都通用：
 
-- ❌ **一般 AI 吐出的天書**：
-  > 「我們在處理 checkout endpoint 時發現因缺乏 Row-level lock 導致併發下庫存扣減出現 Race condition，進而引發 Deadlock 異常。」
-- ✅ **小白溝通師的輸出**：
-  > 🚗 **發生了什麼事**：這就像兩個人在超商同時伸手拿走架上最後一包洋芋片，店員在收銀台刷了兩次條碼，結果電腦卡住不知道該賣給誰。  
-  > 🛠️ **做了什麼調整**：我們加了「排隊發號碼牌」的機制，先到先拿，第二個人會被禮貌告知已售完。  
-  > 🎯 **下一步**：點擊 [測試訂購] 按鈕，確認庫存歸零時頁面有沒有正確顯示「已售完」。
-
----
-
-### 範例 B：文案潤飾（說人話）
-
-- ❌ **一般 AI 寫的八股文**：
-  > 「在當今瞬息萬變的數位時代，這款工具的誕生無疑標誌著工作效率的重大飛躍。它不僅能為團隊賦能，更能優化整個業務閉環。總的來說，這是不可或缺的選擇。」
-- ✅ **說人話改寫後**：
-  > 「工作節奏越來越快，這款工具幫團隊省下很多重複手動的步驟，把流程串得更順。如果你的團隊常被雜事卡住，它很值得一試。」
+1. **AI 講的東西你看不懂**
+   打：「請用小白模式解釋你剛才這個 bug。」
+2. **你自己打了一大段亂亂的東西，想整理成能發的文案**
+   打：「說人話，幫我修改這段文案。」
+3. **AI 吐出一大串程式碼或專業術語，你完全看不懂也聽不懂**
+   打：「看不懂，說人話。」
+4. **連要問什麼都想不出來**
+   打：「請教我怎麼用你。」它會自己帶你，不用你先搞懂規則。
 
 ---
 
-## 📂 專案結構
+## 資料夾裡有什麼（給想深入研究的人看）
 
-- [`SKILL.md`](SKILL.md)：Agent / Skill 主定義檔
-- [`.cursorrules`](.cursorrules)：Cursor Agent 專用規則檔
-- [`references/tech-plain-talk.md`](references/tech-plain-talk.md)：技術降維生活比喻庫
-- [`references/adhd-guardrails.md`](references/adhd-guardrails.md)：ADHD 友善認知管理規範
-- [`references/ai-patterns.md`](references/ai-patterns.md)：35+ 種 AI 寫作痕跡檢測庫
-- [`references/taiwan-glossary.md`](references/taiwan-glossary.md)：台灣在地化詞庫與標點標準
-- [`prompts/`](prompts/)：Web 版與 Cursor 專用提示詞
+- [`SKILL.md`](SKILL.md)：這個 Agent 的完整行為規則
+- [`.cursorrules`](.cursorrules)：給 Cursor 用的規則檔
+- [`references/tech-plain-talk.md`](references/tech-plain-talk.md)：技術轉生活比喻的對照庫
+- [`references/adhd-guardrails.md`](references/adhd-guardrails.md)：降低閱讀負擔的輸出規則
+- [`references/ai-patterns.md`](references/ai-patterns.md)：AI 常見套話特徵清單
+- [`references/taiwan-glossary.md`](references/taiwan-glossary.md)：台灣用語與標點對照表
+- [`prompts/`](prompts/)：網頁版、Cursor 版用的提示詞原稿
 
 ---
 
-## 📄 開源授權
+## 授權
 
-本專案採用 [MIT License](LICENSE)。歡迎 Fork、提 PR 與擴充比喻庫！
+[MIT License](LICENSE)，歡迎 Fork、提 PR、擴充比喻庫。

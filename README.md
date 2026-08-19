@@ -24,6 +24,16 @@
 
 ---
 
+## 👑 「神」系列家族成員與完整協同鏈
+
+* 📋 **[案神 Awesome-Anson](https://github.com/fishtvlvoe/Awesome-Anson)**：接案分析、商務報價、合約拆解與提案簡報
+* 🏗️ **[蓋神 Awesome-Gason](https://github.com/fishtvlvoe/Awesome-Gason)**：Spectra SDD 全自動開發總管（規格 ➔ 多 Agent 自動實作與驗收）
+* 🗣️ **[譯神 Awesome-Eason](https://github.com/fishtvlvoe/Awesome-Eason)**（本倉庫）：小白模式技術降維、台灣繁中去 AI 味與翻譯急救
+* ⌨️ **[Key神 Awesome-Keyson](https://github.com/fishtvlvoe/Awesome-Keyson)**：自動 Key 單、智慧語意對齊與跨平台表單自動填寫
+* 🎬 **[剪神 Awesome-Janson](https://github.com/fishtvlvoe/Awesome-Janson)**：全能 AI 影片剪輯 Agent（長片精修、爆款短影音與動效）
+
+---
+
 ## 你打什麼，它回什麼（實際例子）
 
 ### 例子 1：技術問題聽不懂 → 打「小白模式」

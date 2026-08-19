@@ -22,18 +22,47 @@
 | **說人話模式** | 把 AI 寫的空話、套話清掉，改成像真人打字給朋友看的口氣 | 文案、貼文、信件讀起來太假、太厲害的時候 |
 | **翻譯模式** | 不管前面在講什麼，立刻停下來，用最白話重講一次，還會附一個生活對照 | 完全看不懂、還是不懂、連要問什麼都想不出來的時候 |
 
+
 ---
 
-## 👑 「神」系列家族成員與完整協同鏈
+<!-- GODS-FAMILY:START -->
+## 👑 「神」系列家族：彼此怎麼接力合作？
 
-* 📋 **[案神 Awesome-Anson](https://github.com/fishtvlvoe/Awesome-Anson)**：接案分析、商務報價、合約拆解與提案簡報
-* 🏗️ **[蓋神 Awesome-Gason](https://github.com/fishtvlvoe/Awesome-Gason)**：Spectra SDD 全自動開發總管（規格 ➔ 多 Agent 自動實作與驗收）
-* 🗣️ **[譯神 Awesome-Eason](https://github.com/fishtvlvoe/Awesome-Eason)**（本倉庫）：小白模式技術降維、台灣繁中去 AI 味與翻譯急救
+「神」系列不是各自為政的工具，而是一條從**商務接案、工程開發到成果交付**的完整流水線：
+
+```text
+┌─────────────────────────────────────────────────────────────────────────┐
+│                       👑 「神」系列家族完整協同接力鏈                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+【第一棒：接案與商務需求】
+  📋 案神 (Awesome-Anson) ➔ 丟進客戶會議逐字稿與資料，自動拆解需求、產出報價單與簡報。
+         │
+         ▼ (客戶成交，需求確認，交棒給工程總管)
+【第二棒：自動化工程開發】
+  🏗️ 蓋神 (Awesome-Gason) ➔ 把需求轉成 Spectra 規格，指揮多 Agent 在隔離房間寫碼與驗收。
+         │
+         ├─► 🗣️ 譯神 (Awesome-Eason) ➔ 過程中遇到看不懂的技術名詞？對外文案太假？
+         │                               隨時叫「譯神」出來翻譯成白話、去 AI 味。
+         │
+         ├─► ⌨️ Key神 (Awesome-Keyson) ➔ 專案需註冊第三方平台、申請 API Key、填寫繁瑣企業表單？
+         │                               貼上網址交給「Key神」安全自動填表，不用手打。
+         │
+         ▼ (系統開發完成，功能已驗收上線)
+【第三棒：產品交付與行銷宣傳】
+  🎬 剪神 (Awesome-Janson) ➔ 錄好的系統操作教學、發表會影片，一鍵自動精修成長片與爆款短影音。
+```
+
+### 家族成員倉庫速查
+
+* 📋 **[案神 Awesome-Anson](https://github.com/fishtvlvoe/Awesome-Anson)**：接案分析、商務報價、合約拆解與提案簡報架構
+* 🏗️ **[蓋神 Awesome-Gason](https://github.com/fishtvlvoe/Awesome-Gason)**：Spectra SDD 全自動開發總管（規格→TDD→多代理派工→CR→驗收）
+* 🗣️ **[譯神 Awesome-Eason](https://github.com/fishtvlvoe/Awesome-Eason)**（本倉庫）：小白技術降維、台灣繁中去 AI 味與翻譯急救
 * ⌨️ **[Key神 Awesome-Keyson](https://github.com/fishtvlvoe/Awesome-Keyson)**：自動 Key 單、智慧語意對齊與跨平台表單自動填寫
 * 🎬 **[剪神 Awesome-Janson](https://github.com/fishtvlvoe/Awesome-Janson)**：全能 AI 影片剪輯 Agent（長片精修、爆款短影音與動效）
+<!-- GODS-FAMILY:END -->
 
 ---
-
 ## 你打什麼，它回什麼（實際例子）
 
 ### 例子 1：技術問題聽不懂 → 打「小白模式」
